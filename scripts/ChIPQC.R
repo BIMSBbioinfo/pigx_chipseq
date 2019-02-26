@@ -32,6 +32,8 @@ ChIPQC = function(
     bamfile              = NULL,
     logfile              = NULL,
     nucleotide_frequency = NULL,
+    chrM_count           = NULL,
+    discard_chrM         = FALSE,
     annotation           = NULL,
     outfile              = NULL,
     scriptdir            = NULL,
@@ -66,14 +68,29 @@ ChIPQC = function(
     if(!library_type %in% c('single','paired'))
       stop('supported library types are single or paired')
 
+    # read mapping stats
     cnts.stat = readRDS(logfile)
-    mapped.total = cnts.stat[cnts.stat$sample_name == sample_name,]
-    mapped.total = mapped.total$value[mapped.total$stat == 'mapped.total']
+    
+    # add mitochondrial read count to mapping stats
+    chrM.stat = readRDS(chrM_count)
+    cnts.stat = rbind(cnts.stat,chrM.stat)
+    
+    # subset for sample
+    cnts.stat = cnts.stat[cnts.stat$sample_name == sample_name,]
+    mapped.total = cnts.stat$value[cnts.stat$stat == 'mapped.total']
+    
+    # remove mitochondrial reads from mapping stats
+    if ( discard_chrM == 'yes' || discard_chrM == TRUE ) {
+        reads.chrM   = cnts.stat$value[cnts.stat$stat == 'reads.chrM']
+        mapped.total =   mapped.total - reads.chrM
+    }
+    
     # compensates for double number of paired reads
     # normalizes to fragment number
     cnt_factor = ifelse(library_type == 'single', 1, 2)
     mapped.total = mapped.total/cnt_factor
-
+    
+    
     chr_lengths = scanBamHeader(bamfile)[[1]]$targets
     chr_lengths = sort(chr_lengths, decreasing=TRUE)
     use_longest_chr = TRUE
@@ -175,6 +192,7 @@ ChIPQC(
   bamfile              = argv$input[['bamfile']],
   logfile              = argv$input[['logfile']],
   nucleotide_frequency = argv$input[['nucleotide_frequency']],
+  chrM_count           = argv$input[['chrM_count']],
   annotation           = argv$input[['annotation']],
   outfile              = argv$output[['outfile']],
   scriptdir            = argv$params[['scriptdir']],
