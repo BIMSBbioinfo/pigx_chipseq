@@ -282,7 +282,7 @@ Annotate_Reads = function(
 MappingStats_Bowtie2 = function(path){
 
     require(stringr)
-    require(data.table)
+    # require(data.table)
     s = scan(path, what='character', sep='\t', quiet=TRUE)
     ## make vectorized version of str_which
     v_str_which <- Vectorize(FUN = str_which,vectorize.args = 'pattern')
@@ -296,9 +296,9 @@ MappingStats_Bowtie2 = function(path){
     if(length(s) > 6)
         s = s[c(1:5, 15)]
     s = as.numeric(s)
-    d = data.table(value = s)
+    d = data.frame(value = s)
     d$stat = c('reads.total','reads.unpaired','reads.unmapped','reads.uniq','reads.mult','alignment.rate')
-    d = rbind(d, data.table(
+    d = rbind(d, data.frame(
         stat  ='mapped.total',
         value = subset(d,stat=='reads.uniq')$value + subset(d,stat=='reads.mult')$value))
     return(d)
