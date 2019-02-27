@@ -23,7 +23,13 @@ STRUCTURE_VARIABLES = {
 'OBLIGATORY_FILES'          : ['genome-file','gff-file'],
 
 # obligatory names for report chunks
-'REPORT_CHUNKS' : {'EXTRACT_SIGNAL_ANNOTATION':'Extract_Signal_Annotation','PEAK_STATISTICS':'Peak_Statistics','ANNOTATE_PEAKS':'Annotate_Peaks','ChIPQC':'ChIPQC'}
+'REPORT_CHUNKS' : {
+    'EXTRACT_SIGNAL_ANNOTATION':'Extract_Signal_Annotation',
+    'PEAK_STATISTICS':'Peak_Statistics',
+    'ANNOTATE_PEAKS':'Annotate_Peaks',
+    'ChIPQC':'ChIPQC',
+    'COUNT_CHRM':'Count_chrM'
+    }
 }
 
 
@@ -239,6 +245,7 @@ TRIMMING        = [flatten(TRIM_GALORE_DICT.values())]
 BOWTIE2         = expand(os.path.join(PATH_MAPPED, "{name}", "{name}" + BAM_SUFFIX + ".bai"), name=NAMES)
 BOWTIE2_STATS   = [os.path.join(PATH_RDS, "BowtieLog.rds")]
 CHRLEN          = [GENOME_PREFIX_PATH + '.chrlen.txt']
+COUNT_CHRM      = [os.path.join(PATH_RDS, "Count_chrM.rds")]
 TILLING_WINDOWS = [GENOME_PREFIX_PATH + '.GenomicWindows.GRanges.rds']
 NUCLEOTIDE_FREQ = [GENOME_PREFIX_PATH + '.NucleotideFrequency.GRanges.rds']
 FASTQC          = [FASTQC_DICT[i]['fastqc'] for i in list(FASTQC_DICT.keys())]
@@ -286,6 +293,7 @@ EXTRACT_SIGNAL_ANNOTATION = expand(os.path.join(PATH_RDS_TEMP,'{name}','{name}.E
 
 # ---------------------------------------------------------------------------- #
 # does the chipqc
+include: os.path.join(RULES_PATH, 'Count_mitochondrial_reads.py')
 include: os.path.join(RULES_PATH, 'ChIPQC.py')
 
 # ---------------------------------------------------------------------------- #
