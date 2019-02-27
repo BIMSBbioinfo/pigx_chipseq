@@ -12,7 +12,8 @@ get_RDS_Input_files = function(path){
                 str_detect(name, 'ChIPQC')              ~ "ChIPQC",
                 str_detect(name, 'Annotate_Peaks')      ~ "Annotate_Peaks",
                 str_detect(name, 'Peak_Statistics.rds') ~ "Peak_Statistics",
-                str_detect(name, 'Extract_Signal_Annotation.rds') ~ "Extract_Signal_Annotation"
+                str_detect(name, 'Extract_Signal_Annotation.rds') ~ "Extract_Signal_Annotation",
+                str_detect(name, 'Count_chrM.rds')      ~ "Count_chrM"
             )) %>%
         mutate(name = str_replace(basename(name),'.rds',''))            %>%
         mutate(name = str_replace(basename(name),'_ChIPQC',''))         %>%
@@ -103,6 +104,11 @@ format_ChIPQC = function(tab){
 
 # ---------------------------------------------------------------------------- #
 format_Peak_Statistics = function(tab){
+    readRDS(tab$file)
+}
+
+# ---------------------------------------------------------------------------- #
+format_Count_chrM = function(tab){
     readRDS(tab$file)
 }
 

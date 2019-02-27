@@ -1,7 +1,8 @@
 # ----------------------------------------------------------------------------- #
 rule count_mitochondrial_reads:
     input:
-        bamfiles = expand(os.path.join(PATH_MAPPED, "{name}", "{name}" + BAM_SUFFIX + ".bai"), name=NAMES)
+        bamfiles = expand(os.path.join(PATH_MAPPED, "{name}", "{name}" + BAM_SUFFIX + ".bai"), name=NAMES),
+        bowtie2log = rules.parse_bowite2_log.output.outfile
     output:
         outfile  = os.path.join(PATH_RDS, "Count_chrM.rds")
     params:

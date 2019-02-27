@@ -273,16 +273,12 @@ g = lstats$ChIPQC$Annotation %>%
         scale_fill_brewer(name = 'Annotation', palette='Set2') +
         theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-read_distribution_width = length(unique(lstats$ChIPQC$Annotation$sample_name))*0.5
+read_distribution_width = length(unique(lstats$ChIPQC$Annotation$sample_name))*0.5+4
 ```
 
 ```{r Read_Distribution_in_Genomic_Features_Plot, include=TRUE, fig.align='center', fig.width=read_distribution_width}
 print(g)
 ```
-
-
----
-
 
 
 ```{r Read_Distribution_in_Genomic_Features_Header2, include=analysis_ind['Extract_Signal_Annotation'], fig.align='center', eval=analysis_ind['Extract_Signal_Annotation'], results='asis'}
@@ -343,6 +339,38 @@ for(i in seq(genomic_locations)){
   print(g)
   cat('\n')
 }
+```
+
+---
+```{r Reads_Mapping_to_Mitochondrial_Chromosome, include=TRUE, fig.align='center', include=analysis_ind['Count_chrM'],eval=analysis_ind['Count_chrM'],results='asis'}
+
+
+ncat('# Reads Mapping to Mitochondrial Chromosome')
+
+message  = 'Following plot shows the percentage of reads mapped to the 
+mitchondrial chromosome. This information is useful in the context of ATAC-seq data, 
+as these reads are usually ignored and lower the total mapping rate.'
+
+ncat(message)
+
+g = lstats$Count_chrM %>%
+    filter(stat == "perc.chrM") %>%
+    
+    ggplot(aes(x = sample_name, y=value, fill= 'sample_name')) +
+    geom_bar(stat='identity') +
+    xlab('Sample') +
+    ylab('% reads mapping to chrM') +
+    scale_fill_brewer(name = 'Sample', palette='Set2') +
+    scale_y_continuous(limits = c(0,100))
+    coord_flip() #+ 
+    # theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+reads_on_chrM_width = length(unique(lstats$Count_chrM$sample_name))*0.5+4
+```
+
+```{r Reads_Mapping_to_Mitochondrial_Chromosome_Plot, include=TRUE, fig.align='center', fig.width=reads_on_chrM_width, include=analysis_ind['Count_chrM'],eval=analysis_ind['Count_chrM']}
+
+print(g)
 ```
 
 ---

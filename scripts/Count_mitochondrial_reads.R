@@ -8,6 +8,7 @@ argv = Parse_Arguments('Count_chrM')
 
 Count_chrM <- function(
     infiles, 
+    bowtie2log, 
     genome_chrlen, 
     outfile, 
     chrM_givenName=NULL
@@ -42,16 +43,26 @@ Count_chrM <- function(
       gr <- as(genome[chr_names[chr_names %in% chrM_defaultName]],"GRanges")
     }
     
+    ## load bowtie2 log
+    cnts.stat = readRDS(bowtie2log)
+    
     res <- list()
     for(i in 1:length(infiles)){
       
       infile = infiles[i]
-      name = str_replace(basename(infile),'.sorted.bam','')
+      name = basename(dirname(infile))
       message(name)
+      # subset for sample
+      cnts.stat.sub = cnts.stat[cnts.stat$sample_name == name,]
+      print(cnts.stat.sub)
+      mapped.total = cnts.stat.sub$value[cnts.stat.sub$stat == 'mapped.total']
       count = tryCatch(Rsamtools::countBam(file = infile,
                                   param = Rsamtools::ScanBamParam(which = gr))$records,
                        error=function(e) 0)
-      stat = data.frame("value"=count, "stat"="reads.chrM", sample_name = name,row.names = NULL)
+      stat = data.frame("value"=c(count,count/mapped.total*100), 
+                        "stat"=c("reads.chrM","perc.chrM"), 
+                        sample_name = name,
+                        row.names = NULL)
       res[[name]] = stat
       
     }
@@ -63,10 +74,11 @@ Count_chrM <- function(
 # ---------------------------------------------------------------------------- #
 # function call
 Count_chrM(
-    infiles     = argv$input[['bamfiles']],
-    genome_chrlen = argv$params[['chrlen']],
+    infiles        = argv$input[['bamfiles']],
+    bowtie2log     = argv$input[['bowtie2log']],
+    genome_chrlen  = argv$params[['chrlen']],
     chrM_givenName = argv$params[['chrM_givenName']],
-    outfile     = argv$output[['outfile']]
+    outfile        = argv$output[['outfile']]
 )
 
 
