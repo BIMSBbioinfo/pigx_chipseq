@@ -69,8 +69,6 @@ unpacking the latest release tarball:
 make install
 ```
 
-# Dependencies
-
 By default the `configure` script expects tools to be in a directory
 listed in the `PATH` environment variable.  If the tools are installed
 in a location that is not on the `PATH` you can tell the `configure`
@@ -78,8 +76,23 @@ script about them with variables.  Run `./configure --help` for a list
 of all variables and options.
 
 You can prepare a suitable environment with Conda or with [GNU
-Guix](https://gnu.org/s/guix). If you do not use one of these package
-managers, you will need to ensure that the following software is
+Guix](https://gnu.org/s/guix). 
+
+<details>
+<summary>get dependencies via Guix</summary>
+
+Assuming you have Guix installed, the following command spawns a
+sub-shell in which all dependencies are available:
+
+```sh
+guix environment -l guix.scm
+```
+
+</details>
+
+
+If you do not use one of these package managers, 
+you will need to ensure that the following software is
 installed:
 
 <details>
@@ -141,14 +154,7 @@ installed:
 </details>
 
 
-## via Guix
 
-Assuming you have Guix installed, the following command spawns a
-sub-shell in which all dependencies are available:
-
-```sh
-guix environment -l guix.scm
-```
 
 
 # Getting started
