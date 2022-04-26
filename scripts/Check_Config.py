@@ -172,14 +172,15 @@ def check_settings(sample_sheet_dict, config, structure_variables, message):
             
             # check that peak calling used are already defined
             feature_keys = config['differential_analysis'].keys()
+            samps = []
             if 'idr' in set(config.keys()):
-                idr_samps = list(config['idr'].keys())
+                samps = samps + list(config['idr'].keys())
 
             if 'peak_calling' in set(config.keys()):
-                peak_samps = list(config['peak_calling'].keys())
+                samps = samps + list(config['peak_calling'].keys())
 
-            samps = set(idr_samps + peak_samps)
-            
+            samps = set(samps)
+
             samples_da = []
             for key in feature_keys:
                 diffAnnDict = config['differential_analysis'][key]
