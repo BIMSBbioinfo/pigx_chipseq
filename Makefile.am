@@ -68,6 +68,7 @@ TESTS = \
   Tests/test.sh
 
 EXTRA_DIST =												    \
+  VERSION														\
   META.in														\
   Tests/sample_sheet.csv									    \
   Tests/settings.yaml										    \
