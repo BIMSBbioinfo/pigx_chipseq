@@ -33,6 +33,9 @@ Knit_Report = function(
     quiet         = FALSE
 ){
 
+    # knitr 1.39 changed the default behavior.
+    options(knitr.graphics.rel_path = FALSE)
+
     suppressPackageStartupMessages(library(htmlwidgets))
     suppressPackageStartupMessages(library(rmarkdown))
     workdir = dirname(outfile)
