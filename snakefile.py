@@ -173,7 +173,7 @@ TRACK_PATHS = {
 # ---------------------------------------------------------------------------- #
 # Constructs the genome index prefix name
 # fills in the GENOME_HASH with paths for the main genome
-generate_genome_files(GENOME_ORIG, PATH_INDEX, GENOME_TYPES['Main'], GENOME)
+generate_genome_files(GENOME_HASH, GENOME_ORIG, PATH_INDEX, GENOME_TYPES['Main'], GENOME)
 GENOME_MAIN_PREFIX_PATH = GENOME_HASH[GENOME_TYPES['Main']]['genome_prefix']
 PATH_MAPPED_MAIN = os.path.join(PATH_MAPPED, GENOME_TYPES['Main'])
 

@@ -107,7 +107,7 @@ def replace_fastq_ext(fqfile,replacement):
 # index files for the given genome
 # it is used for the main and spike-in genomes
 # CAUTION: GENOME_HASH is a global dict
-def generate_genome_files(genome_location, index_path, genome_type, genome_name=None):
+def generate_genome_files(GENOME_HASH, genome_location, index_path, genome_type, genome_name=None):
 
     GENOME_HASH[genome_type] = {}
     if genome_name == None:
