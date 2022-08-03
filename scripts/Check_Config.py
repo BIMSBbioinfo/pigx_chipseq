@@ -174,10 +174,12 @@ def check_settings(sample_sheet_dict, config, structure_variables, message):
             feature_keys = config['differential_analysis'].keys()
             samps = []
             if 'idr' in set(config.keys()):
-                samps = samps + list(config['idr'].keys())
+                idr_samps = list(config['idr'].keys())
+                samps = samps + idr_samps
 
             if 'peak_calling' in set(config.keys()):
-                samps = samps + list(config['peak_calling'].keys())
+                peak_samps = list(config['peak_calling'].keys())
+                samps = samps + peak_samps
 
             samps = set(samps)
 
@@ -196,7 +198,7 @@ def check_settings(sample_sheet_dict, config, structure_variables, message):
             samples_da = flatten(samples_da)
 
             # check if samples used as Control for ChIP are used for differential analysis 
-            if 'peak_calling' in set(config.keys()) and peak_samps:
+            if 'peak_calling' in set(config.keys()) and (peak_samps):
                 peakInput = [ config['peak_calling'][peak]['Cont'] for peak in peak_samps if config['peak_calling'][peak]['Cont']]
                 peakInput = flatten(peakInput) 
                 samples_cont = set(samples_da).intersection(set(peakInput))
