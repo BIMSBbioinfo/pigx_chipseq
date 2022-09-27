@@ -432,11 +432,10 @@ df <- as.data.frame(colData[,c("group","AnalysisGroup")])
 pheatmap::pheatmap(M,
                    annotation_col=df)
 #save image to folder
-pdf(file = file.path(imagesDir, 'correlationPlot.pdf'))
 # corrplot::corrplot(corr = M, order = 'hclust', method = 'square', type = 'lower', tl.srt = 45, addCoef.col = 'white')
 pheatmap::pheatmap(M,
-                   annotation_col=df)
-invisible(dev.off())
+                   annotation_col=df,
+                   filename = file.path(imagesDir, 'correlationPlot.pdf'))
 ```
 
 ## Heatmaps {.tabset}
@@ -457,15 +456,14 @@ pheatmap::pheatmap(norm.counts[select,],
          annotation_col=df, 
          main = 'Heatmap of the Normalized Coverage Values of \n Top 100 Peaks with highest variance across samples')
 #save image to folder
-pdf(file = file.path(imagesDir, 'heatmap.pdf'))
 pheatmap::pheatmap(norm.counts[select,], 
          scale = 'row',
          cluster_rows=TRUE, 
          show_rownames=FALSE, 
          cluster_cols=TRUE, 
          annotation_col=df, 
-         main = 'Heatmap of the Normalized Coverage Values of \n Top 100 Peaks with highest variance across samples')
-invisible(dev.off())
+         main = 'Heatmap of the Normalized Coverage Values of \n Top 100 Peaks with highest variance across samples',
+         filename = file.path(imagesDir, 'heatmap.pdf'))
 ```
 
 ```{r results='asis'}
@@ -491,15 +489,14 @@ pheatmap::pheatmap(norm.counts[select,],
          annotation_col=df, 
          main = 'Heatmap of the Normalized Coverage Values of \n Top 100 most significant differential Peaks across samples')
 #save image to folder
-pdf(file = file.path(imagesDir, 'heatmap_diffPeaks.pdf'))
 pheatmap::pheatmap(norm.counts[select,], 
          scale = 'row',
          cluster_rows=TRUE, 
          show_rownames=FALSE, 
          cluster_cols=TRUE, 
          annotation_col=df, 
-         main = 'Heatmap of the Normalized Coverage Values of \n Top 100 most significant differential Peaks across samples')
-invisible(dev.off())
+         main = 'Heatmap of the Normalized Coverage Values of \n Top 100 most significant differential Peaks across samples',
+         filename = file.path(imagesDir, 'heatmap_diffPeaks.pdf'))
 ```
 
 # Exploratory Plots and Tables
