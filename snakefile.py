@@ -173,7 +173,11 @@ TRACK_PATHS = {
 # ---------------------------------------------------------------------------- #
 # Constructs the genome index prefix name
 # fills in the GENOME_HASH with paths for the main genome
-generate_genome_files(GENOME_HASH, GENOME_ORIG, PATH_INDEX, GENOME_TYPES['Main'], GENOME)
+generate_genome_files(GENOME_HASH, 
+        genome_location=GENOME_ORIG, 
+        index_path=PATH_INDEX, 
+        genome_type=GENOME_TYPES['Main'], 
+        genome_name=GENOME)
 GENOME_MAIN_PREFIX_PATH = GENOME_HASH[GENOME_TYPES['Main']]['genome_prefix']
 PATH_MAPPED_MAIN = os.path.join(PATH_MAPPED, GENOME_TYPES['Main'])
 
@@ -331,7 +335,11 @@ if 'spikein-file' in set(config['locations'].keys()):
             GENOME_NAME_SPIKEIN  = os.path.basename(GENOME_SPIKEIN)
 
         # fills in the genome hash with the spike-in genome
-        generate_genome_files(GENOME_SPIKEIN, PATH_INDEX, GENOME_TYPES['Spike-in'], GENOME_NAME_SPIKEIN)
+        generate_genome_files(GENOME_HASH=GENOME_HASH, 
+                              genome_location=GENOME_SPIKEIN, 
+                              index_path=PATH_INDEX,
+                              genome_type=GENOME_TYPES['Spike-in'], 
+                              genome_name=GENOME_NAME_SPIKEIN)
 
         # maps the reads to the spike in genome
         BOWTIE2_SPIKEIN  = expand(os.path.join(PATH_MAPPED, GENOME_TYPES['Spike-in'], "{name}", "{name}.sorted.bam.bai"), name=NAMES_SPIKEIN)
