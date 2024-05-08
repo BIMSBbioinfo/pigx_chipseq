@@ -613,7 +613,7 @@ if(filterUP(DE, 0, 0.1) > 0) {
 
     geneOrPeakUp <-  with(
                           DE[!is.na(DE$padj) & DE$padj < 0.1 & DE$log2FoldChange > 0, ],
-                          if(annotGene != "None") unique(unlist(strsplit(annotGene,":")))
+                          if(any(annotGene != "None")) unique(unlist(strsplit(annotGene,":")))
                           else sprintf("%s:%s:%s",seqnames,start,end))
 } else {
     geneOrPeakUp <- ""
