@@ -45,6 +45,8 @@ general:
     macs3:
         keep-dup: auto
         q: 0.05
+        nomodel: ''
+        extsize: 147
     # 
     extract_signal:
         expand_peak: 200
