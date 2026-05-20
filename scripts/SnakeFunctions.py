@@ -4,6 +4,7 @@ import re
 import os
 import sys
 import itertools
+import json
 
 # ---------------------------------------------------------------------------- #
 # uses global variable SAMPLE_SHEET
