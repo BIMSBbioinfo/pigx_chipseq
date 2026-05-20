@@ -8,7 +8,7 @@ argv = Parse_Arguments('Annotate_Peaks')
 #' Annotate_Peaks
 #'
 #' @param annotation - list - processed annotation as given by Prepare_Annotation.R
-#' @param peaks_path - narrowPeaks/broadPeaks in macs2 output
+#' @param peaks_path - narrowPeaks/broadPeaks in macs3 output
 #' @param outfile    - location of the output file
 #' @param peakname   - Name of the peak file
 #'
@@ -70,7 +70,7 @@ Annotate_Peaks(
 
 
 # annotation = '/home/vfranke/Tmp/pigxtest/Annotation/Processed_Annotation.rds'
-# peaks      = '/home/vfranke/Tmp/pigxtest/Peaks/MACS2/Peaks1/Peaks1_qsort.bed'
+# peaks      = '/home/vfranke/Tmp/pigxtest/Peaks/MACS3/Peaks1/Peaks1_qsort.bed'
 # outfile    = '~/Tmp/file.rds'
 # peakname   = 'peak1'
 # scriptdir  = '/home/vfranke/Projects/AAkalin_PIX/Scripts'

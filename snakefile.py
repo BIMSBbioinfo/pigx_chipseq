@@ -102,7 +102,7 @@ PATH_MAPPED     = os.path.join(OUTPUT_DIR, 'Mapped/Bowtie')
 PATH_QC         = os.path.join(OUTPUT_DIR, 'FastQC')
 PATH_INDEX      = os.path.join(OUTPUT_DIR, 'Bowtie2_Index')
 PATH_LOG        = os.path.join(OUTPUT_DIR, 'Log')
-PATH_PEAK       = os.path.join(OUTPUT_DIR, 'Peaks/MACS2')
+PATH_PEAK       = os.path.join(OUTPUT_DIR, 'Peaks/MACS3')
 PATH_BW         = os.path.join(OUTPUT_DIR, 'BigWig')
 PATH_IDR        = os.path.join(OUTPUT_DIR, 'Peaks/IDR')
 PATH_HUB        = os.path.join(OUTPUT_DIR, 'UCSC_HUB')
@@ -392,7 +392,7 @@ if peak_index:
         QSORT = []
         suffix = 'narrowPeak'
         for name in PEAK_NAMES:
-            suffix = get_macs2_suffix(name, CUSTOM_PARAMS)
+            suffix = get_macs3_suffix(name, CUSTOM_PARAMS)
 
             MACS    = MACS  + [os.path.join(PATH_PEAK,  name, name + "_peaks." + suffix)]
             QSORT   = QSORT + [os.path.join(PATH_PEAK,  name, name + "_qsort.bed" )]

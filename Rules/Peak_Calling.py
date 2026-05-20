@@ -19,7 +19,7 @@ def get_files_macs(wc):
 
 
 # chrlen is currently hardcoded to the main genome
-rule macs2:
+rule macs3:
     input:
         unpack(get_files_macs),
         chrlen = GENOME_HASH[GENOME_TYPES['Main']]['genome_prefix'] + '.chrlen.txt'
@@ -28,12 +28,12 @@ rule macs2:
     params:
         outpath     = os.path.join(PATH_PEAK, "{name}"),
         name        = "{name}",
-        macs2       = SOFTWARE['macs2']['executable'],
-        params_macs = PARAMS['macs2']
+        macs3       = SOFTWARE['macs3']['executable'],
+        params_macs = PARAMS['macs3']
     log:
         logfile = os.path.join(PATH_LOG, "{name}",'{class}.macs.log')
     message:"""
-        Running macs2:
+        Running macs3:
             sample: {params.name}
             output: {output.outfile}
     """
@@ -41,8 +41,8 @@ rule macs2:
         params_macs = params.params_macs
         if params.name in set(CUSTOM_PARAMS.keys()):
             if not CUSTOM_PARAMS[params.name] == None:
-                if 'macs2' in CUSTOM_PARAMS[params.name].keys():
-                    params_macs.update(CUSTOM_PARAMS[params.name]['macs2'])
+                if 'macs3' in CUSTOM_PARAMS[params.name].keys():
+                    params_macs.update(CUSTOM_PARAMS[params.name]['macs3'])
 
         # checks whether the control samples are specified
         samples = ''
@@ -57,19 +57,19 @@ rule macs2:
             gsize = sum( chrsize )
 
         command = " ".join(
-        [params.macs2, 'callpeak',
+        [params.macs3, 'callpeak',
         samples,
         '--gsize',str(gsize),
         '--outdir', params.outpath,
         '-n', params.name,
-        join_params("macs2", PARAMS, params_macs),
+        join_params("macs3", PARAMS, params_macs),
         '2>', log.logfile
         ])
         shell(command)
 
 # ----------------------------------------------------------------------------- #
 def get_macs_output(wc):
-    suffix = get_macs2_suffix(wc.name, CUSTOM_PARAMS)
+    suffix = get_macs3_suffix(wc.name, CUSTOM_PARAMS)
     peak_name = os.path.join(PATH_PEAK, wc.name, wc.name + '_peaks.' + suffix)
     return(peak_name)
 

@@ -41,8 +41,8 @@ general:
     # adjust sensitivity in idr
     idr:
         idr-threshold: 0.1
-    # adjust any macs2 parameters for peak calling
-    macs2:
+    # adjust any macs3 parameters for peak calling
+    macs3:
         keep-dup: auto
         q: 0.05
     # 
@@ -88,7 +88,7 @@ general:
 #        # sample(s) to be used as control sample
 #        Cont: Cont1
 #        params:
-#            macs2:
+#            macs3:
 #                # each analysis can be adjusted independently
 #                # add/modify available parameters of the analysis
 #                nomodel: ''
@@ -97,7 +97,7 @@ general:
 #        ChIP: ChIP2
 #        Cont: Cont2
 #        params:
-#            macs2:
+#            macs3:
 #                # each analysis can be adjusted independently
 #                nomodel: ''
 #                extsize: 147
@@ -111,7 +111,7 @@ general:
 #            - Cont1
 #            - Cont2
 #        params:
-#            macs2:
+#            macs3:
 #                nomodel: ''
 #
 #    Peaks5:
@@ -121,7 +121,7 @@ general:
 #            - Cont1
 #            - Cont2
 #        params:
-#            macs2:
+#            macs3:
 #                nomodel: ''
 #
 #    Peaks6:
@@ -129,7 +129,7 @@ general:
 #        ChIP: ChIP1
 #        Cont:
 #        params:
-#            macs2:
+#            macs3:
 #                nomodel: ''
 #
 ## ------------------------------------------------------------ #
@@ -215,7 +215,7 @@ general:
 #         Control:
 #             - Group3
 #         params:
-#             macs2:
+#             macs3:
 #                 nomodel: ''
 #                 extsize: 147
 
@@ -288,7 +288,7 @@ execution:
     link_genome:
       threads:   1
       memory:    1G
-    macs2:
+    macs3:
       threads:   1
       memory:    16G
     make_ucsc_hub:
@@ -353,8 +353,8 @@ tools:
             - output-file
             - l
             - plot
-    macs2:
-        executable: @MACS2@
+    macs3:
+        executable: @MACS3@
         args: ""
         help: 'callpeak -h'
         remove:

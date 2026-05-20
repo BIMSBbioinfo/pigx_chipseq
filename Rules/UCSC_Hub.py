@@ -23,7 +23,7 @@ rule make_ucsc_hub:
 
 # ----------------------------------------------------------------------------- #
 def bedToBigBed_input(wc):
-    suffix = get_macs2_suffix(wc.name, CUSTOM_PARAMS)
+    suffix = get_macs3_suffix(wc.name, CUSTOM_PARAMS)
     infile = os.path.join(PATH_PEAK, wc.name, wc.name + "_peaks." + suffix)
     return(infile)
 
@@ -44,7 +44,7 @@ rule bedTobigBed:
                 output: {output}
         """
     run:
-        suffix = get_macs2_suffix(params.name, CUSTOM_PARAMS)
+        suffix = get_macs3_suffix(params.name, CUSTOM_PARAMS)
         if suffix == 'narrowPeak':
             ncol = 7
         else:
