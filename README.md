@@ -30,7 +30,7 @@ differences in occupancy between defined groups.
 - Trim reads using trim-galore 
 - Quality control reads using fastQC and multiQC
 - Map reads to genome using Bowtie2
-- Call peaks for multiple combinations of samples using MACS2
+- Call peaks for multiple combinations of samples using MACS3
 - Control reproducibility of experiments using IDR
 - Generate a UCSC track hub to view in Genome Browser  
 - *NEW* Highly customizable Differential Analysis
@@ -130,7 +130,7 @@ installed:
 - multiqc
 - trim-galore
 - bowtie
-- macs2
+- macs3
 - idr
 - samtools
 - bedtools
@@ -283,7 +283,7 @@ general:
         k: 1
     idr:
         idr-threshold: 0.1
-    macs2:
+    macs3:
         #        g: mm
         keep-dup: auto
         q: 0.05
@@ -339,7 +339,7 @@ peak_calling:
         # sample(s) to be used as control sample
         Cont: Cont1
         params:
-            macs2:
+            macs3:
                 # each analysis can be adjusted independently
                 # add/modify available parameters of the analysis
                 nomodel: ''
@@ -348,7 +348,7 @@ peak_calling:
         ChIP: ChIP2
         Cont: Cont2
         params:
-            macs2:
+            macs3:
                 # each analysis can be adjusted independently
                 nomodel: ''
                 extsize: 147
@@ -362,7 +362,7 @@ peak_calling:
             - Cont1
             - Cont2
         params:
-            macs2:
+            macs3:
                 nomodel: ''
 
     Peaks5:
@@ -372,7 +372,7 @@ peak_calling:
             - Cont1
             - Cont2
         params:
-            macs2:
+            macs3:
                 nomodel: ''
 
     Peaks6:
@@ -380,7 +380,7 @@ peak_calling:
         ChIP: ChIP1
         Cont:
         params:
-            macs2:
+            macs3:
                 nomodel: ''
 ```
 
@@ -497,7 +497,7 @@ differential_analysis:
             - Group2
         Control: Group3
         params:
-            macs2:
+            macs3:
                 nomodel: ''
                 extsize: 147
 ```
@@ -549,7 +549,7 @@ Mapped reads in .bam format, and corresponding bigWig files.
 
 #### Peaks
 
-Peaks called with MACS2. Depending on the parameters, contains either narrowPeak or 
+Peaks called with MACS3. Depending on the parameters, contains either narrowPeak or 
 broadPeak format. **sample_qsort.bed** contains uniformly processed peaks, sorted by
 their corresponding p value.
 

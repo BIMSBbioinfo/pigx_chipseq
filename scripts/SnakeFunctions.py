@@ -189,13 +189,13 @@ def join_params(app, app_params, params_set):
 
 # ---------------------------------------------------------------------------- #
 # given a sample name extracts whether the sample is broadPeak or narrowPeak
-def get_macs2_suffix(name, dictionary):
+def get_macs3_suffix(name, dictionary):
     sample = dictionary[name]
     suffix = 'narrowPeak'
 
     if not sample == None:
-        if 'macs2' in set(sample.keys()):
-            if 'broad' in set(sample['macs2'].keys()):
+        if 'macs3' in set(sample.keys()):
+            if 'broad' in set(sample['macs3'].keys()):
                 suffix = 'broadPeak'
     return(suffix)
 

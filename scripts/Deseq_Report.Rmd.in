@@ -6,7 +6,7 @@ params:
   countDataFile: '/fast/AG_Tursun/agosdsc/projects/nida_atac_idha1/joinedFeatureCounts.tsv'
   colDataFile: '/home/agosdsc/projects/NulFatima_idha/2020_ATACseq_idha1vsFumGlut3Gln2/coldata_v2.tsv'
   gtfFile: '/fast/AG_Tursun/agosdsc/projects/nida_atac_idha1/Annotation/Processed_Annotation.rds'
-  peakFile: '/fast/AG_Tursun/agosdsc/projects/nida_atac_idha1/Peaks/MACS2/all_samples/all_samples_peaks.narrowPeak'
+  peakFile: '/fast/AG_Tursun/agosdsc/projects/nida_atac_idha1/Peaks/MACS3/all_samples/all_samples_peaks.narrowPeak'
   caseSampleGroups: 'idha1_ctrl'
   controlSampleGroups: 'N2' 
   covariates: ''
@@ -186,7 +186,7 @@ colData[colData$group %in% caseSamples,]$AnalysisGroup <- 'Case'
 
 ## Peak Calling
 
-All peaks were called with [macs2](https://github.com/taoliu/MACS) and the peak consensus set used for this analysis can be found at: 
+All peaks were called with [macs3](https://github.com/taoliu/MACS) and the peak consensus set used for this analysis can be found at: 
 
  - **Peak Consensus File**: 
  `r peakFile`
